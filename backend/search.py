@@ -12,6 +12,4 @@ def search_by_text(palavra, versao, cidade):
     if versao:
         df_drop = df_drop[df_drop['versao'] == versao]
 
-    print(df_drop)
-
-    return json.loads(df_drop.to_json())
+    return json.loads(df_drop.to_json(orient='records'))
