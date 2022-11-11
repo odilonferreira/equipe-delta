@@ -28,35 +28,64 @@ def select_cidade(cidade):
     return(retorno)
 
 def municipios():
-  df = pd.read_csv('./data/satisfacao_5_1.csv')
-  
-  df.dropna(inplace=True)
-  df.sort_values('municipio', ascending=True, inplace=True)
-  return {"data":list(df['municipio'].unique())}
+    df = pd.read_csv('./data/satisfacao_5_1.csv')
+    
+    df.dropna(inplace=True)
+    df.sort_values('municipio', ascending=True, inplace=True)
+    return {"data":list(df['municipio'].unique())}
 
 def versoes():
-  df = pd.read_csv('./data/satisfacao_5_1.csv')
-  
-  df.dropna(inplace=True)
-  df.sort_values('versao', ascending=True, inplace=True)
-  return {"data":list(df['versao'].unique())}
+    df = pd.read_csv('./data/satisfacao_5_1.csv')
+    
+    df.dropna(inplace=True)
+    df.sort_values('versao', ascending=True, inplace=True)
+    return {"data":list(df['versao'].unique())}
 
 def satisfacoes(palavra, versao, cidade):
-  df = pd.read_csv('./data/satisfacao_5_1.csv')
-  df.dropna(inplace=True)
-  novo_dataframe = pd.DataFrame()
+    df = pd.read_csv('./data/satisfacao_5_1.csv')
+    df.dropna(inplace=True)
+    novo_dataframe = pd.DataFrame()
 
-  if palavra:
-      df = df[df['observacao'].str.contains(palavra)]
-  if cidade:
-      df = df[df['municipio'] == cidade]
-  if versao:
-      df = df[df['versao'] == versao]
+    if palavra:
+        df = df[df['observacao'].str.contains(palavra)]
+    if cidade:
+        df = df[df['municipio'] == cidade]
+    if versao:
+        df = df[df['versao'] == versao]
 
-  novo_dataframe['versao'] = df['versao']
-  novo_dataframe['grauSatisfacao'] = df['grauSatisfacao']
+    novo_dataframe['versao'] = df['versao']
+    novo_dataframe['grauSatisfacao'] = df['grauSatisfacao']
 
-  print(novo_dataframe)
+    print(novo_dataframe)
 
-  novo_dataframe = json.loads(novo_dataframe.groupby(['versao', ])['grauSatisfacao'].count().to_json())
-  return novo_dataframe
+    novo_dataframe = json.loads(novo_dataframe.groupby(['versao', 'grauSatisfacao'])['grauSatisfacao'].count().to_json())
+    return novo_dataframe
+
+def satisfacoes_media():
+    df = pd.read_csv('./data/satisfacao_5_1.csv')
+    df_versao = df.copy()
+    df_versao = df_versao.dropna()
+    df_versao = pd.get_dummies(df_versao, columns=['grauSatisfacao'])
+    df_versao = df_versao.groupby('versao').sum()
+    df_versao['total'] = 0
+    for coluna in df_versao.columns:
+        df_versao["total"] += df_versao[coluna]
+    df_versao['total'] = df_versao['total']*0.5
+    df_versao["grauSatisfacao_INSATISFEITO"] = df_versao["grauSatisfacao_INSATISFEITO"] * 1
+    df_versao["grauSatisfacao_MUITO_INSATISFEITO"] = df_versao["grauSatisfacao_MUITO_INSATISFEITO"] * 2
+    df_versao["grauSatisfacao_INDIFERENTE"] = df_versao["grauSatisfacao_INDIFERENTE"] * 3
+    df_versao["grauSatisfacao_SATISFEITO"] = df_versao["grauSatisfacao_SATISFEITO"] * 4
+    df_versao["grauSatisfacao_MUITO_SATISFEITO"] = df_versao["grauSatisfacao_MUITO_SATISFEITO"] * 5
+
+    df_versao['total_ponderado'] = 0
+
+    for coluna in df_versao.columns:
+        df_versao["total_ponderado"] += df_versao[coluna]
+    
+    df_versao['media'] = df_versao['total_ponderado']/df_versao['total']
+
+    df_versao['media'] = df_versao['media'] * 0.5
+
+    df_versao = df_versao.reset_index()
+
+    return json.loads(df_versao[['versao', 'media']].to_json(orient='records'))
