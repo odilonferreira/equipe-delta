@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy
 from flask import jsonify
+import json
 
 def select_cidade(cidade):
     df = pd.read_csv('./data/satisfacao_5_1.csv')
@@ -39,3 +40,13 @@ def versoes():
   df.dropna(inplace=True)
   df.sort_values('versao', ascending=True, inplace=True)
   return {"data":list(df['versao'].unique())}
+
+def satisfacoes():
+  df = pd.read_csv('./data/satisfacao_5_1.csv')
+  df.dropna(inplace=True)
+  novo_dataframe = pd.DataFrame()
+  novo_dataframe['versao'] = df['versao']
+  novo_dataframe['grauSatisfacao'] = df['grauSatisfacao']
+
+  novo_dataframe = json.loads(novo_dataframe.groupby(['versao', 'grauSatisfacao'])['grauSatisfacao'].count().to_json())
+  return novo_dataframe

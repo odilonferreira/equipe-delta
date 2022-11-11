@@ -23,6 +23,11 @@ def versao():
     retorno = versoes()
     return retorno
 
+@app.route("/satisfacao", methods=["GET"])
+def satisfacao():
+    retorno = satisfacoes()
+    return retorno   
+
 
 #  main thread of execution to start the server
 if __name__=='__main__':
