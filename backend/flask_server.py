@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, request
-from service import select_cidade, municipios, versoes, satisfacoes
+from service import select_cidade, municipios, versoes, satisfacoes, satisfacoes_media
 from search import search_by_text
 
 # initialize our Flask application
@@ -45,6 +45,10 @@ def satisfacao():
     retorno = satisfacoes(texto,versao,cidade)
     return retorno   
 
+@app.route("/satisfacao_media", methods=["GET"])
+def satisfacao_media():
+    retorno = satisfacoes_media()
+    return retorno
 
 #  main thread of execution to start the server
 if __name__=='__main__':
