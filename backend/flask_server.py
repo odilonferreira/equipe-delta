@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, request
-from exemplo import select_cidade
+from exemplo import select_cidade, municipios, versoes, satisfacoes
 
 # initialize our Flask application
 app= Flask(__name__)
@@ -12,6 +12,17 @@ def message():
 
     dados = select_cidade(cidade)
     return dados
+
+@app.route("/municipio", methods=["GET"])
+def municipio():
+    retorno = municipios()
+    return (retorno)
+
+@app.route("/versoes", methods=["GET"])
+def versao():
+    retorno = versoes()
+    return retorno
+
 
 #  main thread of execution to start the server
 if __name__=='__main__':
