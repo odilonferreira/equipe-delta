@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request
 from service import select_cidade, municipios, versoes, satisfacoes
+from search import search_by_text
 
 # initialize our Flask application
 app= Flask(__name__)
@@ -21,6 +22,17 @@ def municipio():
 @app.route("/versoes", methods=["GET"])
 def versao():
     retorno = versoes()
+    return retorno
+@app.route("/query", methods=["GET"])
+def query():
+    posted_data = request.get_json()
+    texto = posted_data['texto']
+    cidade = posted_data['cidade']
+    versao = posted_data['versao']
+    
+
+    retorno = search_by_text(texto, versao, cidade)
+
     return retorno
 
 @app.route("/satisfacao", methods=["GET"])
