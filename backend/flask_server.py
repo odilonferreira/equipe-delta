@@ -1,9 +1,13 @@
 from flask import Flask, jsonify, request
-from service import select_cidade, municipios, versoes, satisfacoes
+
+from flask_cors import CORS
+
 from search import search_by_text
+from service import municipios, satisfacoes, select_cidade, versoes
 
 # initialize our Flask application
 app= Flask(__name__)
+CORS(app)
 
 
 @app.route("/message", methods=["GET"])

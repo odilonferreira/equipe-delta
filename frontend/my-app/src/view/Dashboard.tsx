@@ -1,21 +1,27 @@
 import { Heading, useStyles } from "bold-ui";
-import Header from "../../components/Header";
-import { SideMenu } from "../../components/SideMenu";
 import { CSSProperties, useEffect } from "react";
-import MainContainer from "../../components/MainContainer";
-import RespostaVersao from "../../components/Charts/RespostaVersao";
+import React from "react";
+import Header from "../components/Header";
+import MainContainer from "../components/MainContainer";
+import { SideMenu } from "../components/SideMenu";
 import api from "../api/axios";
+import RespostaVersao from "../components/RespostaVersao";
 
 export default function Dashboard() {
   const { classes } = useStyles(createStyles);
 
+  const data = 
+    {
+      "cidade": "",
+      "texto": "",
+      "versao": ""
+  }
+  
+
   useEffect(() => {
-    api
-      .get("/satisfacao")
-      .then((response) => console.log(response))
-      .catch((err) => {
-        console.error("ops! ocorreu um erro" + err);
-      });
+    fetch("http://localhost:5000/satifacao", {body: JSON.stringify(data)}).
+      then((response) => response.json())
+  .then((data) => console.log(data));
   }, []);
 
   return (
