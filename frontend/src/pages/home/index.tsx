@@ -1,3 +1,11 @@
+import Header from "../../components/Header";
+import { SideMenu } from "../../components/SideMenu";
+
 export default function HomePage() {
-  return <h1>Home</h1>;
+  return (
+    <>
+      <Header />
+      <SideMenu />
+    </>
+  );
 }
