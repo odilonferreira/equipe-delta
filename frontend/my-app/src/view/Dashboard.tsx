@@ -10,19 +10,8 @@ import RespostaVersao from "../components/RespostaVersao";
 export default function Dashboard() {
   const { classes } = useStyles(createStyles);
 
-  const data = 
-    {
-      "cidade": "",
-      "texto": "",
-      "versao": ""
-  }
   
 
-  useEffect(() => {
-    fetch("http://localhost:5000/satifacao", {body: JSON.stringify(data)}).
-      then((response) => response.json())
-  .then((data) => console.log(data));
-  }, []);
 
   return (
     <>

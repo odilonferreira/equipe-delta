@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, request
-
+from urllib.parse import urlparse
 from flask_cors import CORS
 
 from service import select_cidade, municipios, versoes, satisfacoes, satisfacoes_media
@@ -31,10 +31,9 @@ def versao():
 
 @app.route("/query", methods=["GET"])
 def query():
-    posted_data = request.get_json()
-    texto = posted_data['texto']
-    cidade = posted_data['cidade']
-    versao = posted_data['versao']
+    texto = request.args.get('texto')
+    cidade = request.args.get('cidade')
+    versao = request.args.get('versao')
 
     retorno = search_by_text(texto, versao, cidade)
 
@@ -42,11 +41,10 @@ def query():
 
 @app.route("/satisfacao", methods=["GET"])
 def satisfacao():
-    posted_data = request.get_json()
-    texto = posted_data['texto']
-    cidade = posted_data['cidade']
-    versao = posted_data['versao']
-
+    texto = request.args.get('texto')
+    cidade = request.args.get('cidade')
+    versao = request.args.get('versao')
+    
     retorno = satisfacoes(texto,versao,cidade)
     return retorno   
 

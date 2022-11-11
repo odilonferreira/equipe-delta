@@ -1,4 +1,4 @@
-import React, { PureComponent, useEffect } from 'react';
+import React, { PureComponent, useEffect, useState } from 'react';
 import {
   ComposedChart,
   Line,
@@ -12,94 +12,21 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 
-const data = [
-  {
-    name: '5.0.0',
-    uv: 590,
-    pv: 800,
-    amt: 1400,
-  },
-  {
-    name: '5.0.1',
-    uv: 868,
-    pv: 967,
-    amt: 1506,
-  },
-  {
-    name: '5.0.2',
-    uv: 1397,
-    pv: 1098,
-    amt: 989,
-  },
-  {
-    name: '5.0.3',
-    uv: 1480,
-    pv: 1200,
-    amt: 1228,
-  },
-  {
-    name: '5.0.4',
-    uv: 1520,
-    pv: 1108,
-    amt: 1100,
-  },
-  {
-    name: '5.0.5',
-    uv: 1400,
-    pv: 680,
-    amt: 1700,
-  },
-  {
-    name: '5.0.6',
-    uv: 1400,
-    pv: 680,
-    amt: 1700,
-  },
-  {
-    name: '5.0.7',
-    uv: 1400,
-    pv: 680,
-    amt: 1700,
-  },
-  {
-    name: '5.0.8',
-    uv: 1400,
-    pv: 680,
-    amt: 1700,
-  },
-  {
-    name: '5.0.9',
-    uv: 1400,
-    pv: 680,
-    amt: 1700,
-  },
-  {
-    name: '5.0.10',
-    uv: 1400,
-    pv: 680,
-    amt: 1700,
-  },
-  {
-    name: '5.0.11',
-    uv: 1400,
-    pv: 680,
-    amt: 1700,
-  },
-  {
-    name: '5.0.12',
-    uv: 1400,
-    pv: 680,
-    amt: 1700,
-  },
-];
-
 export default function RespostaVersao() {
+
+  const [resposta, setResposta] = useState()
+
+  useEffect(() => {
+    fetch("http://localhost:5000/satisfacao_media").
+      then((response) => response.json())
+  .then((data) => setResposta(data));
+  }, []);
 
     return (
         <ComposedChart
           width={500}
           height={400}
-          data={data}
+          data={resposta}
           margin={{
             top: 20,
             right: 20,
@@ -108,12 +35,12 @@ export default function RespostaVersao() {
           }}
         >
           <CartesianGrid stroke="#f5f5f5" />
-          <XAxis dataKey="name" scale="band" />
+          <XAxis dataKey="versao" scale="band" />
           <YAxis />
           <Tooltip />
           <Legend />
-          <Bar dataKey="uv" barSize={20} fill="#413ea0" />
-          <Line type="monotone" dataKey="uv" stroke="#ff7300" />
+          <Bar dataKey="total" barSize={20} fill="#413ea0" />
+          <Line type="monotone" dataKey="media" stroke="#ff7300" />
         </ComposedChart>
     );
 }
