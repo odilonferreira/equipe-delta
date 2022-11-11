@@ -88,4 +88,4 @@ def satisfacoes_media():
 
     df_versao = df_versao.reset_index()
 
-    return json.loads(df_versao[['versao', 'media']].to_json(orient='records'))
+    return json.loads(df_versao[['versao', 'media', 'total']].to_json(orient='records'))
