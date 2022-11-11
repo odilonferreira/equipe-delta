@@ -41,12 +41,22 @@ def versoes():
   df.sort_values('versao', ascending=True, inplace=True)
   return {"data":list(df['versao'].unique())}
 
-def satisfacoes():
+def satisfacoes(palavra, versao, cidade):
   df = pd.read_csv('./data/satisfacao_5_1.csv')
   df.dropna(inplace=True)
   novo_dataframe = pd.DataFrame()
+
+  if palavra:
+      df = df[df['observacao'].str.contains(palavra)]
+  if cidade:
+      df = df[df['municipio'] == cidade]
+  if versao:
+      df = df[df['versao'] == versao]
+
   novo_dataframe['versao'] = df['versao']
   novo_dataframe['grauSatisfacao'] = df['grauSatisfacao']
 
-  novo_dataframe = json.loads(novo_dataframe.groupby(['versao', 'grauSatisfacao'])['grauSatisfacao'].count().to_json())
+  print(novo_dataframe)
+
+  novo_dataframe = json.loads(novo_dataframe.groupby(['versao', ])['grauSatisfacao'].count().to_json())
   return novo_dataframe

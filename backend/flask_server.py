@@ -23,13 +23,13 @@ def municipio():
 def versao():
     retorno = versoes()
     return retorno
+
 @app.route("/query", methods=["GET"])
 def query():
     posted_data = request.get_json()
     texto = posted_data['texto']
     cidade = posted_data['cidade']
     versao = posted_data['versao']
-    
 
     retorno = search_by_text(texto, versao, cidade)
 
@@ -37,7 +37,12 @@ def query():
 
 @app.route("/satisfacao", methods=["GET"])
 def satisfacao():
-    retorno = satisfacoes()
+    posted_data = request.get_json()
+    texto = posted_data['texto']
+    cidade = posted_data['cidade']
+    versao = posted_data['versao']
+
+    retorno = satisfacoes(texto,versao,cidade)
     return retorno   
 
 
