@@ -1,6 +1,7 @@
 import pandas as pd
-import matplotlib.pyplot as plt
 import numpy
+from flask import jsonify
+import json
 
 def select_cidade(cidade):
     df = pd.read_csv('./data/satisfacao_5_1.csv')
@@ -25,3 +26,27 @@ def select_cidade(cidade):
     # print(df_percentage.iloc[df_percentage['municipio'] == 'MANAUS/AM'])
     retorno = df_percentage[df_percentage['municipio'] == cidade].to_json(orient='records')
     return(retorno)
+
+def municipios():
+  df = pd.read_csv('./data/satisfacao_5_1.csv')
+  
+  df.dropna(inplace=True)
+  df.sort_values('municipio', ascending=True, inplace=True)
+  return {"data":list(df['municipio'].unique())}
+
+def versoes():
+  df = pd.read_csv('./data/satisfacao_5_1.csv')
+  
+  df.dropna(inplace=True)
+  df.sort_values('versao', ascending=True, inplace=True)
+  return {"data":list(df['versao'].unique())}
+
+def satisfacoes():
+  df = pd.read_csv('./data/satisfacao_5_1.csv')
+  df.dropna(inplace=True)
+  novo_dataframe = pd.DataFrame()
+  novo_dataframe['versao'] = df['versao']
+  novo_dataframe['grauSatisfacao'] = df['grauSatisfacao']
+
+  novo_dataframe = json.loads(novo_dataframe.groupby(['versao', 'grauSatisfacao'])['grauSatisfacao'].count().to_json())
+  return novo_dataframe
