@@ -7,7 +7,6 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <LoginButton />
-      <a href="/oauth2/authorization/google">Login</a>
     </div>
   );
 }
