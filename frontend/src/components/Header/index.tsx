@@ -1,5 +1,4 @@
 import { useStyles, Icon, Button } from "bold-ui";
-import Link from "next/link";
 import { CSSProperties } from "react";
 
 export default function Header() {
@@ -26,7 +25,6 @@ export const createStyles = () => ({
     margin: "0 auto",
     padding: "0 2rem",
     justifyContent: "flex-end",
-
     display: "flex",
     alignItems: "center",
   },
