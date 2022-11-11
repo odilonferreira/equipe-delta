@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, request
-from exemplo import select_cidade, municipios, versoes, satisfacoes
+from service import select_cidade, municipios, versoes, satisfacoes
 
 # initialize our Flask application
 app= Flask(__name__)
