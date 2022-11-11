@@ -1,19 +1,19 @@
 import { useStyles } from "bold-ui";
 import Link from "next/link";
-import { CSSProperties } from "react";
+import React, { CSSProperties } from "react";
 
 export function SideMenu() {
   const { classes } = useStyles(createStyles);
   return (
     <div className={classes.container}>
-      <ui className={classes.list}>
+      <ul className={classes.list}>
         <li className={classes.item}>
-          <Link href={"/dashboard"}>Dashboard</Link>
+          <Link href={"/"}>Dashboard</Link>
         </li>
         <li className={classes.item}>
-          <Link href={"/dashboard"}>Dados brutos</Link>
+          <Link href={"/dados-brutos"}>Dados brutos</Link>
         </li>
-      </ui>
+      </ul>
     </div>
   );
 }

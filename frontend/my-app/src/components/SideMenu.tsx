@@ -1,18 +1,32 @@
 import { useStyles } from "bold-ui";
-import Link from "next/link";
 import React from "react";
 import { CSSProperties } from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  Link
+} from "react-router-dom";
+import DadosBrutos from "../view/DadosBrutos";
+import Dashboard from "../view/Dashboard";
 
 export function SideMenu() {
   const { classes } = useStyles(createStyles);
   return (
     <div className={classes.container}>
+      {/* <Router>
+          <Route path="/">
+            <Dashboard />
+          </Route>
+          <Route path="/dados-brutos">
+            <DadosBrutos />
+          </Route>
+        </Router> */}
       <ul className={classes.list}>
         <li className={classes.item}>
-          {/* <Link href={"/dashboard"}>Dashboard</Link> */}
+          <Link to={"/"}>Dashboard</Link>
         </li>
         <li className={classes.item}>
-          {/* <Link href={"/dashboard"}>Dados brutos</Link> */}
+          <Link to={"/dados-brutos"}>Dados brutos</Link>
         </li>
       </ul>
     </div>

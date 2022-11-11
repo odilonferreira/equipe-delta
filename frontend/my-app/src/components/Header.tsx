@@ -8,7 +8,7 @@ export default function Header() {
   return (
     <header className={classes.headerContainer}>
       <div className={classes.headerContent}>
-        <Icon icon="openDoor"></Icon>
+        {/* <Icon icon="openDoor"></Icon> */}
       </div>
     </header>
   );

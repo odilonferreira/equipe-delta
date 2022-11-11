@@ -1,38 +1,38 @@
-import { Heading, useStyles } from "bold-ui";
-import { CSSProperties, useEffect } from "react";
-import React from "react";
+import { Button, Heading, HFlow, TextField, VFlow } from "bold-ui";
 import Header from "../components/Header";
 import MainContainer from "../components/MainContainer";
 import { SideMenu } from "../components/SideMenu";
-import api from "../api/axios";
 import RespostaVersao from "../components/RespostaVersao";
+import DadosBrutosTable from "../components/DadosBrutosTable";
 
 export default function Dashboard() {
-  const { classes } = useStyles(createStyles);
-
-  
-
-
   return (
     <>
       <Header />
       <SideMenu />
       <MainContainer>
         <Heading level={1}>Dashboard</Heading>
-        <RespostaVersao />
+        <Heading level={1}>Dados brutos</Heading>
+        {/* <Heading level={3}>Pesquisa por palavra-chave</Heading> */}
+        <VFlow>
+          <HFlow hSpacing={5}>
+            <TextField
+              style={{ width: "100%" }}
+              label="Pesquisa por palavra-chave"
+              placeholder="Digite seus termos de busca"
+            />
+            <TextField
+              style={{ width: "100%" }}
+              label="Módulo"
+              placeholder="Todos os módulos"
+            />
+          </HFlow>
+          <Button kind="primary">Pesquisar</Button>
+          <DadosBrutosTable />
+          <RespostaVersao />
+        </VFlow>
+        
       </MainContainer>
     </>
   );
 }
-
-export const createStyles = () => ({
-  container: {
-    // position: "fixed",
-    paddingTop: "1rem",
-    overflow: "auto",
-    width: "200px",
-    height: "100vh",
-    borderRight: "1px solid gray",
-    boxShadow: "2px 0 5px 0 gray",
-  } as CSSProperties,
-});

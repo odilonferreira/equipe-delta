@@ -1,11 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
 import Dashboard from './view/Dashboard';
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  useParams
+} from "react-router-dom";
+import DadosBrutos from './view/DadosBrutos';
 
 function App() {
   return (
+    <>
+    {/* <Router>
+      <Route path="/">
+        <Dashboard />
+      </Route>
+      <Route path="/dados-brutos">
+        <DadosBrutos />
+      </Route>
+    </Router> */}
     <Dashboard />
+    </>
+    
   );
 }
 

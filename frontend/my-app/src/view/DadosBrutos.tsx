@@ -1,8 +1,9 @@
 import { Heading, TextField, HFlow, Button, VFlow } from "bold-ui";
-import DadosBrutosTable from "../../components/DadosBrutosTable";
-import Header from "../../components/Header";
-import MainContainer from "../../components/MainContainer";
-import { SideMenu } from "../../components/SideMenu";
+import DadosBrutosTable from "../components/DadosBrutosTable";
+import Header from "../components/Header";
+import MainContainer from "../components/MainContainer";
+import { SideMenu } from "../components/SideMenu";
+
 
 export default function DadosBrutos() {
   return (
