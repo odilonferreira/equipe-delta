@@ -2,6 +2,7 @@ import { Heading, useStyles } from "bold-ui";
 import Header from "../../components/Header";
 import { SideMenu } from "../../components/SideMenu";
 import { CSSProperties } from "react";
+import MainContainer from "../../components/MainContainer";
 
 export default function Dashboard() {
   const { classes } = useStyles(createStyles);
@@ -9,10 +10,10 @@ export default function Dashboard() {
   return (
     <>
       <Header />
-      <div>
-        <SideMenu />
+      <SideMenu />
+      <MainContainer>
         <Heading level={1}>Dashboard</Heading>
-      </div>
+      </MainContainer>
     </>
   );
 }
