@@ -56,8 +56,6 @@ def satisfacoes(palavra, versao, cidade):
     novo_dataframe['versao'] = df['versao']
     novo_dataframe['grauSatisfacao'] = df['grauSatisfacao']
 
-    print(novo_dataframe)
-
     novo_dataframe = json.loads(novo_dataframe.groupby(['versao', 'grauSatisfacao'])['grauSatisfacao'].count().to_json())
     return novo_dataframe
 
